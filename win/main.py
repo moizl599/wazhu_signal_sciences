@@ -13,26 +13,39 @@ sigsci.corp = "workjam"
 sigsci.site = "gcp-prod"
 sigsci.api_token = "fa003294-5c0d-48ac-be69-67fe01e2b55a"
 tags = ['SQLI']
-sigsci.from_time = "-3d"
+sigsci.from_time = "-14d"
+
 
 if sigsci.authenticate():
     for tag in tags:
-        handcrrafted_logs=[]
-        main_logs={}
+        signal_science_logs = {'WAF_timestamp':'',
+                               'WAF_source':'',
+                               'WAF_Remote_country':'',
+                               'WAF_action':'',
+                               'WAF_reason':'',
+                               }
         sigsci.file = f"C:\\Users\\Moiz\\logs\\{tag}.json"
+        lopgfile= f"C:\\Users\\Moiz\\logs\\{tag}_logs.log"
         if os.path.isfile(sigsci.file):
             os.remove(sigsci.file)
-        test = sigsci.get_list_events(tag)
-        data = test['data']
-        for z in range(len(data)):
-                extracted_data = data[z]
-                res = {key: extracted_data[key] for key in extracted_data.keys()
-    & {'timestamp','source','remoteCountryCode','action','reasons','remoteIP'}}
-                handcrrafted_logs.append(res)
-main_logs={'sig_sci':handcrrafted_logs}
-if os.path.isfile(f"C:\\Users\\Moiz\\logs\\{tag}_logs.json"):
-        os.remove(f"C:\\Users\\Moiz\\logs\\{tag}_logs.json")
-with open(f"C:\\Users\\Moiz\\logs\\{tag}.json" , 'a', encoding='utf-8') as json_file:
-    json.dump(main_logs,json_file)
+        if os.path.isfile(lopgfile):
+            os.remove(lopgfile)
+        with open(lopgfile, 'x') as logs_file:
+            test = sigsci.get_list_events(tag)
+            data = test['data']
+            for z in range(len(data)):
+                    extracted_data = data[z]
+                    res = {key: extracted_data[key] for key in extracted_data.keys()
+        & {'timestamp','source','remoteCountryCode','action','reasons'}}
+                    signal_science_logs = {'WAF_timestamp':res['timestamp'],
+                               'WAF_source':res['source'],
+                               'WAF_Remote_country':res['remoteCountryCode'],
+                               'WAF_action':res['action'],
+                               'WAF_reason':res['reasons'],
+                               }
+                    with open(f"C:\\Users\\Moiz\\logs\\{tag}_logs.log", 'a') as f:
+                         json.dump(signal_science_logs,f)
+                         f.write(',\n')
+
              
        
