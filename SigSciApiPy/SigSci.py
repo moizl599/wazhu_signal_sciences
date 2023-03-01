@@ -111,7 +111,6 @@ class SigSciAPI():
         sigsci.parse_init_time()
         build_search_query()
         get_requests()
-
     Example:
         sigsci       = SigSciAPI()
         sigsci.email = 'foo@bar.com'
@@ -120,7 +119,6 @@ class SigSciAPI():
         sigsci.site  = 'www.bar.com'
         sigsci.limit = 1000
         sigsci.file  = '/tmp/foo.json'
-
         if sigsci.authenticate():
             sigsci.from='-4h'
             sigsci.until='-2h'
@@ -198,11 +196,9 @@ class SigSciAPI():
     def authenticate(self):
         """
         SigSciAPI.authenticate()
-
         Before calling, set:
             SigSciAPI.email
             SigSciAPI.pword or SigSciAPI.api_token
-
         Stores auth token in:
             SigSciAPI.authn.token
         """
@@ -250,10 +246,8 @@ class SigSciAPI():
     def build_search_query(self):
         """
         SigSciAPI.build_search_query()
-
         For from_time and until_time syntax see:
         https://dashboard.signalsciences.net/documentation/knowledge-base/search-syntax#time
-
         Default values (query):
             SigSciAPI.from_time  = -1h
             SigSciAPI.until_time = None
@@ -300,17 +294,14 @@ class SigSciAPI():
     def query_api(self):
         """
         SigSciAPI.query_api()
-
         Before calling, set:
             (Required):
                 SigSciAPI.corp
                 SigSciAPI.site
-
             (Optional):
                 SigSciAPI.query
                 SigSciAPI.limit
                 SigSciAPI.file
-
         """
         # https://docs.signalsciences.net/api/#_corps__corpName__sites__siteName__requests_get
         # /corps/{corpName}/sites/{siteName}/requests
@@ -557,19 +548,16 @@ class SigSciAPI():
     def get_feed_requests(self):
         """
         SigSciAPI.get_feed_requests()
-
         Before calling, set:
             (Required):
                 SigSciAPI.corp
                 SigSciAPI.site
-
             (Optional):
                 SigSciAPI.from_time
                 SigSciAPI.until_time
                 SigSciAPI.tags
                 SigSciAPI.file
                 SigSciAPI.format
-
         """
         # https://dashboard.signalsciences.net/documentation/api#_corps__corpName__sites__siteName__feed_requests_get
         # /corps/{corpName}/sites/{siteName}/feed/requests
@@ -631,21 +619,17 @@ class SigSciAPI():
     def get_feed_requests2(self):
         """
         SigSciAPI.get_feed_requests2()
-
         Version 2 of Feed Output
-
         Before calling, set:
             (Required):
                 SigSciAPI.corp
                 SigSciAPI.site
-
             (Optional):
                 SigSciAPI.from_time
                 SigSciAPI.until_time
                 SigSciAPI.tags
                 SigSciAPI.file
                 SigSciAPI.format
-
         """
         # https://dashboard.signalsciences.net/documentation/api#_corps__corpName__sites__siteName__feed_requests_get
         # /corps/{corpName}/sites/{siteName}/feed/requests
@@ -734,14 +718,11 @@ class SigSciAPI():
     def poll_req_continuously(self):
         """
         SigSciAPI.poll_req_continuously()
-
         Polling with Version 2 of Feed Output
-
         Before calling, set:
             (Required):
                 SigSciAPI.corp
                 SigSciAPI.site
-
         """
 
         prev_set = {}
@@ -832,14 +813,11 @@ class SigSciAPI():
     def poll_ev_continuously(self):
         """
         SigSciAPI.poll_ev_continuously()
-
         Polling events
-
         Before calling, set:
             (Required):
                 SigSciAPI.corp
                 SigSciAPI.site
-
         """
 
         prev_set = {}
@@ -898,19 +876,16 @@ class SigSciAPI():
     def get_timeseries(self, tags, rollup=60):
         """
         SigSciAPI.get_timeseries(tag, rollup)
-
         Before calling, set:
             (Required):
                 SigSciAPI.corp
                 SigSciAPI.site
                 SigSciAPI.tags
-
             (Optional):
                 SigSciAPI.from_time
                 SigSciAPI.until_time
                 SigSciAPI.file
                 SigSciAPI.format
-
         """
         # https://dashboard.signalsciences.net/documentation/api#_corps__corpName__sites__siteName__timeseries_requests_get
         # /corps/{corpName}/sites/{siteName}/timeseries/requests
@@ -944,19 +919,16 @@ class SigSciAPI():
     def get_list_events(self, tag=None):
         """
         SigSciAPI.get_list_events(tag)
-
         Before calling, set:
             (Required):
                 SigSciAPI.corp
                 SigSciAPI.site
-
             (Optional):
                 SigSciAPI.tags
                 SigSciAPI.from_time
                 SigSciAPI.until_time
                 SigSciAPI.file
                 SigSciAPI.format
-
         """
         # https://dashboard.signalsciences.net/documentation/api#_corps__corpName__sites__siteName__events_get
         # /corps/{corpName}/sites/{siteName}/events
@@ -979,7 +951,8 @@ class SigSciAPI():
             if 'message' in j:
                 raise ValueError(j['message'])
 
-            self.output_results(j)
+            #self.output_results(j)
+            return(j) 
 
         except Exception as e:
             print('Error: %s ' % str(e))
@@ -989,17 +962,14 @@ class SigSciAPI():
     def get_event_by_id(self):
         """
         SigSciAPI.get_event_by_id()
-
         Before calling, set:
             (Required):
                 SigSciAPI.corp
                 SigSciAPI.site
                 SigSciAPI.event_id
-
             (Optional):
                 SigSciAPI.file
                 SigSciAPI.format
-
         """
         # https://dashboard.signalsciences.net/documentation/api#_corps__corpName__sites__siteName__events__eventID__get
         # /corps/{corpName}/sites/{siteName}/events/{eventID}

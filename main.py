@@ -1,9 +1,7 @@
 from SigSciApiPy.SigSci import *
 import os.path
 import json
-import time
 from random import random
-import re
 # setup sigsci api module
 sigsci = SigSciAPI()
 
@@ -13,9 +11,7 @@ sigsci.corp = "workjam"
 sigsci.site = "gcp-prod"
 sigsci.api_token = "fa003294-5c0d-48ac-be69-67fe01e2b55a"
 tags = ['SQLI']
-sigsci.from_time = "-14d"
-
-
+sigsci.from_time = "-7d"
 if sigsci.authenticate():
     for tag in tags:
         signal_science_logs = {'WAF_timestamp':'',
@@ -45,7 +41,7 @@ if sigsci.authenticate():
                                }
                     with open(f"C:\\Users\\Moiz\\logs\\{tag}_logs.log", 'a') as f:
                          json.dump(signal_science_logs,f)
-                         f.write(',\n')
+                         f.write('\n')
 
              
        
