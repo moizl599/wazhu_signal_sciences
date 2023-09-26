@@ -5,7 +5,7 @@ from SigSciApiPy.SigSci import SigSciAPI
 
 
 class SignalScience:
-    def __init__(self, config_file='key.cfg'):
+    def __init__(self, config_file='key.json'):
         """
         Initializes SignalScience object with required configurations and parameters from the config file.
 
