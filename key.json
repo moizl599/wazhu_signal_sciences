@@ -1,0 +1,8 @@
+{
+  "email": "your_email@example.com",
+  "corp": "your_corp",
+  "site": "your_site",
+  "api_token": "your_api_token",
+  "tags": ["DATACENTER", "MALFORMED-DATA"],
+  "from_time": "-5min"
+}
